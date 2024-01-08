@@ -19,6 +19,7 @@
    >>> exit()
    
    ```
+5. Add the weight file best93_8.pt to this current folder from this link - https://drive.google.com/file/d/1fkL3gdos7RbAZmC1Qxzul5-hFYXst7Cf/view?usp=sharing
    
    To add a new PYTHONPATH in the beginning of the list. This is to make sure that while searching for a specific file it will check for the file in the specified path first. 
    
