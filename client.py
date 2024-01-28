@@ -13,7 +13,7 @@ except:
 '''
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 host = socket.gethostname()
-path = "/home/higopika/Desktop/client_program/waste-product-classification-client/detections/"
+path = "detections/"
 
 def get_version():
     return "1"
@@ -39,6 +39,13 @@ def recieve_data():
     done = False
     data = ""
     data = client.recv(7)
+    print("Should have recieved <WRONG> ",data)
+    
+    file_path = "best93_8_new.pt"
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        print(f"File '{file_path}' deleted successfully.")
+
     if data[0:7] == b'<RIGHT>':
         return
     elif data[0:7] != b'<WRONG>':
@@ -48,6 +55,7 @@ def recieve_data():
     else:
         done = False
         data = ""
+        file = open(file_path, "ab") # change 'w' to 'a'
         while not done:
             # Receive the data one byte at a time
             data = client.recv(1024)
@@ -55,13 +63,14 @@ def recieve_data():
                 #if not data:
                 done = True
                 print("END")
+                file.write(data[:-5])
  #               client.close()
                 break
-            else:
-                file = open("best4.pt", "ab") # change 'w' to 'a'
+            else:                
+                #print(data)
                 file.write(data)
                 print("writing")
-                file.close()
+        file.close()
             #sys.stdout.write(data)
 
 
